@@ -1,7 +1,7 @@
 [project]
 name = "teamstorm"
 version = "0.1.0"
-description = "Клиент TeamStorm Public API для всех пространств"
+description = "TeamStorm from the terminal. Every workspace, not just one."
 requires-python = ">=3.9"
 
 [project.scripts]
