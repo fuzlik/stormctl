@@ -2,11 +2,26 @@
 
 TeamStorm from the terminal. Every workspace, not just one.
 
-`stormctl` is a small Python client for the TeamStorm public API. It finds tasks across spaces, opens a card by its key, and sets start and due dates. No extra libraries.
+Клиент публичного API TeamStorm. Ищет задачи по всем пространствам, открывает карточку по ключу и ставит сроки. Сторонних библиотек нет.
+
+```
+$ python3 -m ts find launch
+пространство    APP     Product
+папка   APP     3f1c...    Launch
+задача  APP     APP-14  Ivan Petrov   Launch   Release checklist
+всего 3
+
+$ python3 -m ts show APP-14
+APP APP-14 Release checklist
+тип: Task | статус: Open
+кто: Ivan Petrov
+папка: Launch
+срок: 02.11 – 06.11
+```
 
 ## Setup
 
-Python 3.9 or newer. Copy the env file and fill in your own host and token:
+Python 3.9+. Скопируй файл окружения и впиши свой хост и токен:
 
 ```bash
 cp .env.example .env
@@ -17,11 +32,11 @@ TEAMSTORM_API_URL=https://your-teamstorm-host
 TEAMSTORM_API_TOKEN=your-private-token
 ```
 
-The token is a PrivateToken from your TeamStorm profile. The URL is only the host, without `/cwm/public/api/v1`.
+Токен — PrivateToken из профиля TeamStorm. В адресе только хост, без `/cwm/public/api/v1`.
 
-## Use
+## Commands
 
-Run it from this folder:
+Запуск из этой папки:
 
 ```bash
 python3 -m ts workspaces
@@ -34,15 +49,19 @@ python3 -m ts show KEY-1
 python3 -m ts due KEY-1 2026-11-02 2026-11-06
 ```
 
-A task key already names its workspace: `KEY-1` is space `KEY`, item `1`.
+Ключ задачи уже содержит пространство: `KEY-1` — пространство `KEY`, задача `1`.
 
-Any raw API call works too:
+Сырой вызов API:
 
 ```bash
 python3 -m ts GET /workspaces
 python3 -m ts PATCH /workspaces/KEY/workitems/KEY-1 '{"name":"New name"}'
 ```
 
-## What it does not keep
+## Privacy
 
-The client does not store your tasks, spaces, or descriptions. Connection settings stay in `.env` on your machine. That file is not part of this repository.
+Клиент не сохраняет задачи, пространства и тексты карточек. Хост и токен лежат в `.env` на твоей машине. Этого файла в репозитории нет.
+
+## License
+
+[MIT](LICENSE)
